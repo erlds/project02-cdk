@@ -48,12 +48,12 @@ public class ProductEventConsumer {
                 envelop.getEventType(),
                 productEvent.getProductId(), snsMessage.getMessageId());
 
-        ProductEventLog productEventLog = buildProductEventLog(envelop, productEvent);
+        ProductEventLog productEventLog = buildProductEventLog(envelop, productEvent, snsMessage.getMessageId());
 
         productEventLogRepository.save(productEventLog);
     }
 
-    ProductEventLog buildProductEventLog(Envelop envelop, ProductEvent productEvent){
+    ProductEventLog buildProductEventLog(Envelop envelop, ProductEvent productEvent, String messageId){
         long timestamp = Instant.now().toEpochMilli();
         ProductEventLog productEventLog = new ProductEventLog();
         productEventLog.setPk(productEvent.getCode());
@@ -64,6 +64,7 @@ public class ProductEventConsumer {
         productEventLog.setTimestamp(timestamp);
         productEventLog.setTtl(Instant.now().plus(
                 Duration.ofMinutes(10)).getEpochSecond());
+        productEventLog.setMessageId(messageId);
 
         return productEventLog;
     }

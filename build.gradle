@@ -31,7 +31,7 @@ repositories {
 
 bootJar {
 	baseName = 'curso_aws_project2'
-	version =  '1.4.0'
+	version =  '1.5.0'
 	mainClassName = "br.com.erlds.aws_project2.AwsProject2Application"
 }
 
